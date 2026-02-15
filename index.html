@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Marc Rosaire ATAYI-GUEDEGBE | Développeur Web – Cotonou</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"/>
+    
+    <style>
+        :root {
+            --warm-earth: #c2410c;
+            --sable: #f5e6cc;
+            --sunset: #f97316;
+            --dark-terre: #7c2d12;
+            --text-main: #2d1b12;
+        }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #fffaf0;
+            color: var(--text-main);
+        }
+        .heading-font {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(124,45,18,0.45), rgba(194,65,12,0.35)),
+                        url(' k.jpg');
+            background-size: cover;
+            background-position: center 30%;
+        }
+        .accent-btn {
+            background-color: var(--warm-earth);
+            color: white;
+        }
+        .accent-btn:hover {
+            background-color: var(--sunset);
+        }
+        .portfolio-card {
+            transition: all 0.35s ease;
+            border: 1px solid #e5d5c5;
+            background: white;
+            border-radius: 1.25rem;
+            overflow: hidden;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -10px rgba(194,65,12,0.18);
+        }
+        .portfolio-overlay {
+            background: linear-gradient(to top, rgba(124,45,18,0.75), transparent 60%);
+        }
+
+        /* Menu hamburger */
+        #mobile-menu {
+            transition: max-height 0.4s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#e5d5c5] shadow-sm">
+        <div class="max-w-7xl mx-auto px-5 sm:px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-[#c2410c] rounded-full flex items-center justify-center text-white font-bold text-lg">MR</div>
+                <span class="text-xl sm:text-2xl font-semibold heading-font text-[#2d1b12]">Marc Rosaire</span>
+            </div>
+
+            <!-- Menu desktop -->
+            <div class="hidden md:flex items-center gap-8 lg:gap-10 text-base font-medium">
+                <a href="#accueil" class="hover:text-[#c2410c] transition">Accueil</a>
+                <a href="#apropos" class="hover:text-[#c2410c] transition">À propos</a>
+                <a href="#projets" class="hover:text-[#c2410c] transition">Projets</a>
+                <a href="#contact" class="hover:text-[#c2410c] transition">Contact</a>
+            </div>
+
+            <!-- Bouton contact desktop -->
+            <a href="#contact" class="hidden md:block px-6 py-3 accent-btn font-medium rounded-xl hover:scale-105 transition text-sm lg:text-base">
+                Me contacter
+            </a>
+
+            <!-- Hamburger mobile -->
+            <button id="menu-toggle" class="md:hidden text-2xl text-[#c2410c]">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Menu mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-[#e5d5c5] overflow-hidden">
+            <div class="px-5 py-6 flex flex-col gap-6 text-lg font-medium">
+                <a href="#accueil" class="hover:text-[#c2410c] transition">Accueil</a>
+                <a href="#apropos" class="hover:text-[#c2410c] transition">À propos</a>
+                <a href="#projets" class="hover:text-[#c2410c] transition">Projets</a>
+                <a href="#contact" class="hover:text-[#c2410c] transition">Contact</a>
+                <a href="#contact" class="mt-4 block accent-btn text-center py-4 rounded-xl font-semibold">
+                    Me contacter
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="accueil" class="hero-bg min-h-[80vh] sm:min-h-screen flex items-center pt-28 sm:pt-24 pb-16 sm:pb-0">
+        <div class="max-w-7xl mx-auto px-5 sm:px-6 text-white">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-tight heading-font drop-shadow-lg">
+                MARC ROSAIRE<br>
+                <span class="text-[#fed7aa]">ATAYI-GUEDEGBE</span>
+            </h1>
+
+            <p class="mt-5 sm:mt-6 text-lg sm:text-xl md:text-2xl lg:text-3xl max-w-3xl drop-shadow-md">
+                Sites web rapides & attractifs<br>
+                pour restaurants, salons, fêtes et PME à Cotonou
+            </p>
+
+            <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 sm:gap-6">
+                <a href="#projets" class="px-8 py-4 bg-white text-[#c2410c] font-semibold rounded-xl hover:bg-[#fff7ed] transition text-base sm:text-lg shadow-lg text-center">
+                    Voir mes réalisations →
+                </a>
+                <a href="#contact" class="px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white/20 transition text-base sm:text-lg text-center">
+                    Parlons de ton projet
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- À propos -->
+    <section id="apropos" class="py-16 sm:py-24 bg-[#fffaf0]">
+        <div class="max-w-7xl mx-auto px-5 sm:px-6">
+            <div class="grid md:grid-cols-2 gap-10 sm:gap-16 items-center">
+                <div>
+                    <span class="inline-block text-[#c2410c] uppercase tracking-widest text-xs sm:text-sm font-medium mb-3 sm:mb-4">Développeur & entrepreneur local</span>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl heading-font font-semibold mb-6 sm:mb-8 text-[#2d1b12]">
+                        Des sites qui attirent vraiment les clients à Cotonou
+                    </h2>
+                    <div class="text-base sm:text-lg leading-relaxed space-y-5 sm:space-y-6 text-[#3f2a1d]">
+                        <p>À 21 ans, étudiant à l’ENEAM, je crée des sites web rapides et beaux, spécialement pensés pour les restaurateurs, coiffeurs, traiteurs et organisateurs d’événements au Bénin.</p>
+                        <p>Mobile d’abord, chargement ultra-rapide, bien référencés à Cotonou, Fidjrossè, Cocotiers… pour que tes clients te trouvent facilement.</p>
+                        <p>Je mélange technique solide et connaissance du terrain béninois.</p>
+                    </div>
+                </div>
+
+                <div class="rounded-3xl overflow-hidden shadow-2xl border-8 border-[#f5e6cc] order-first md:order-last">
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Développeur béninois" class="w-full h-auto"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projets -->
+    <section id="projets" class="py-16 sm:py-24 bg-gradient-to-b from-[#fffaf0] to-[#fef3e8]">
+        <div class="max-w-7xl mx-auto px-5 sm:px-6">
+            <div class="text-center mb-10 sm:mb-16">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl heading-font font-semibold text-[#2d1b12]">
+                    Réalisations
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+                <a href="damso.html" class="portfolio-card">
+                    <div class="relative">
+                        <img src="C2.png" alt="CHEZ DAMSO" class="w-full aspect-[4/5] sm:aspect-video object-cover"/>
+                        <div class="portfolio-overlay absolute inset-0 flex items-end p-6 sm:p-8 text-white">
+                            <div>
+                                <p class="text-[#fed7aa] text-xs sm:text-sm uppercase tracking-wider">Salon de beauté</p>
+                                <h3 class="text-xl sm:text-2xl font-semibold mt-1">CHEZ DAMSO</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="restau.html" class="portfolio-card">
+                    <div class="relative">
+                        <img src="C1.png" alt="SOMMET DE ZION" class="w-full aspect-[4/5] sm:aspect-video object-cover"/>
+                        <div class="portfolio-overlay absolute inset-0 flex items-end p-6 sm:p-8 text-white">
+                            <div>
+                                <p class="text-[#fed7aa] text-xs sm:text-sm uppercase tracking-wider">Restaurant</p>
+                                <h3 class="text-xl sm:text-2xl font-semibold mt-1">SOMMET DE ZION</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="fete.html" class="portfolio-card">
+                    <div class="relative">
+                        <img src="C3.png" alt="LA RÉJOUISSANCE" class="w-full aspect-[4/5] sm:aspect-video object-cover"/>
+                        <div class="portfolio-overlay absolute inset-0 flex items-end p-6 sm:p-8 text-white">
+                            <div>
+                                <p class="text-[#fed7aa] text-xs sm:text-sm uppercase tracking-wider">Événementiel</p>
+                                <h3 class="text-xl sm:text-2xl font-semibold mt-1">LA RÉJOUISSANCE</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-16 sm:py-24 bg-[#fef3e8]">
+        <div class="max-w-7xl mx-auto px-5 sm:px-6">
+            <div class="grid md:grid-cols-2 gap-10 sm:gap-16 items-center">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl heading-font font-semibold mb-6 sm:mb-8 text-[#2d1b12]">
+                        Prêt à développer ton activité ?
+                    </h2>
+
+                    <p class="text-base sm:text-xl text-[#3f2a1d] mb-8 sm:mb-10 leading-relaxed">
+                        Envoie-moi un message via le formulaire ou contacte-moi sur WhatsApp.<br class="hidden sm:block"/>
+                        Je réponds très rapidement.
+                    </p>
+
+                    <a href="https://wa.me/2290147880143?text=Bonjour%20Marc%20Rosaire%2C%20je%20viens%20de%20voir%20ton%20site..." 
+                       target="_blank"
+                       class="inline-flex items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto px-8 py-5 sm:py-6 bg-[#c2410c] hover:bg-[#ea580c] text-white font-semibold rounded-2xl text-base sm:text-xl transition shadow-lg">
+                        <i class="fa-brands fa-whatsapp text-2xl sm:text-3xl"></i>
+                        Discuter sur WhatsApp
+                    </a>
+
+                    <p class="text-xs sm:text-sm text-[#6b4f3a] mt-4 text-center sm:text-left">
+                        Message pré-rempli pour gagner du temps
+                    </p>
+                </div>
+
+                <form action="https://formspree.io/f/xojndpwv" method="POST" class="bg-white p-6 sm:p-10 rounded-3xl shadow-xl space-y-5 sm:space-y-6 border border-[#e5d5c5]">
+                    <input type="hidden" name="_subject" value="Nouveau message – Portfolio">
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+                        <input type="text" name="prenom" placeholder="Prénom" required 
+                               class="w-full border border-[#d4b89f] rounded-xl px-5 sm:px-6 py-3.5 sm:py-4 focus:border-[#c2410c] outline-none text-base"/>
+                        <input type="text" name="nom" placeholder="Nom" required 
+                               class="w-full border border-[#d4b89f] rounded-xl px-5 sm:px-6 py-3.5 sm:py-4 focus:border-[#c2410c] outline-none text-base"/>
+                    </div>
+
+                    <input type="email" name="email" placeholder="Ton email" required 
+                           class="w-full border border-[#d4b89f] rounded-xl px-5 sm:px-6 py-3.5 sm:py-4 focus:border-[#c2410c] outline-none text-base"/>
+
+                    <textarea name="message" rows="5" placeholder="Ton projet (restaurant, salon, événement...)" required 
+                              class="w-full border border-[#d4b89f] rounded-2xl px-5 sm:px-6 py-3.5 sm:py-4 focus:border-[#c2410c] outline-none resize-none text-base"></textarea>
+
+                    <button type="submit" 
+                            class="w-full accent-btn font-bold py-4 sm:py-5 rounded-xl hover:scale-105 transition text-base sm:text-lg flex items-center justify-center gap-3">
+                        Envoyer
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#2d1b12] py-10 sm:py-12 text-center text-[#f5e6cc] text-sm">
+        <p>© 2026 Marc Rosaire ATAYI-GUEDEGBE – Cotonou, Bénin</p>
+       
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Hamburger menu
+        const toggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('mobile-menu');
+
+        toggle.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            toggle.querySelector('i').classList.toggle('fa-bars');
+            toggle.querySelector('i').classList.toggle('fa-times');
+        });
+    </script>
+</body>
+</html>
