@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Sommet de Zion • Restaurant à Cotonou</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Inter:wght@400;500;600&amp;display=swap');
+
+        :root {
+            --gold: #d4af37;
+        }
+
+        .tail-container {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .logo-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2000&amp;q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .food-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .food-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #d4af37;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #d4af37, #f5e8c7);
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .map-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(212, 175, 55, 0.15), transparent 50%);
+            animation: mapPulse 8s infinite ease-in-out;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        @keyframes mapPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .page {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="tail-container bg-zinc-950 text-white overflow-x-hidden">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-zinc-950/90 backdrop-blur-lg border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-yellow-600 rounded-full flex items-center justify-center text-2xl">⛰️</div>
+                <div>
+                    <h1 class="logo-font text-3xl font-bold tracking-tighter text-amber-400">Sommet</h1>
+                    <p class="text-[10px] text-zinc-400 -mt-1 tracking-[3px] uppercase">de Zion</p>
+                </div>
+            </div>
+
+            <!-- Liens -->
+            <div class="hidden md:flex items-center gap-10 text-sm font-medium">
+                <a href="#" onclick="showPage(1)" class="nav-link text-white hover:text-amber-400 transition-colors">Accueil</a>
+                <a href="#" onclick="showPage(2)" class="nav-link text-white hover:text-amber-400 transition-colors">Menu</a>
+                <a href="#" onclick="showPage(3)" class="nav-link text-white hover:text-amber-400 transition-colors">Contact &amp; Réservation</a>
+            </div>
+
+            <!-- Bouton réservation -->
+            <a href="#" onclick="showPage(3)" 
+               class="bg-amber-400 hover:bg-amber-300 transition-colors text-zinc-950 font-semibold px-8 py-3 rounded-full text-sm flex items-center gap-2">
+                <i class="fas fa-calendar-alt"></i>
+                Réserver une table
+            </a>
+
+            <!-- Mobile menu -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-zinc-900 border-t border-zinc-800 py-6">
+            <div class="flex flex-col items-center gap-6 text-lg">
+                <a href="#" onclick="showPage(1);toggleMobileMenu()" class="hover:text-amber-400">Accueil</a>
+                <a href="#" onclick="showPage(2);toggleMobileMenu()" class="hover:text-amber-400">Menu</a>
+                <a href="#" onclick="showPage(3);toggleMobileMenu()" class="hover:text-amber-400">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE 1 : ACCUEIL -->
+    <div id="page-1" class="page min-h-screen">
+        <!-- HERO -->
+        <section class="hero-bg h-screen flex items-center relative">
+            <div class="max-w-5xl mx-auto px-6 text-center">
+                <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-6 py-2 rounded-full mb-6">
+                    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="text-xs tracking-widest uppercase font-medium">Cotonou • Bénin</span>
+                </div>
+                
+                <h2 class="text-7xl md:text-8xl font-bold logo-font tracking-tighter leading-none mb-4">
+                    LE SOMMET<br>DE ZION
+                </h2>
+                <p class="text-2xl text-amber-300 font-light max-w-2xl mx-auto">
+                    Là où la tradition béninoise rencontre l'élégance européenne
+                </p>
+                
+                <div class="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#" onclick="showPage(2)" 
+                       class="bg-white text-zinc-950 px-10 py-6 rounded-2xl font-semibold text-lg hover:bg-amber-400 transition-all flex items-center justify-center gap-3 group">
+                        Découvrir le menu
+                        <span class="group-hover:translate-x-2 transition">→</span>
+                    </a>
+                    <a href="#" onclick="showPage(3)" 
+                       class="border-2 border-white/70 hover:border-white px-10 py-6 rounded-2xl font-semibold text-lg transition-all flex items-center justify-center gap-3">
+                        Réserver maintenant
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs tracking-widest">
+                <div class="w-px h-12 bg-gradient-to-b from-transparent via-white/40 to-transparent"></div>
+                DÉFILER
+            </div>
+        </section>
+
+        <!-- À PROPOS -->
+        <section class="py-24 bg-zinc-900">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80" 
+                             alt="Intérieur du restaurant" 
+                             class="rounded-3xl shadow-2xl">
+                    </div>
+                    <div class="space-y-8">
+                        <div>
+                            <span class="uppercase text-amber-400 text-sm font-medium tracking-widest">Bienvenue au sommet</span>
+                            <h3 class="text-5xl font-bold logo-font mt-3 leading-none">Une expérience<br>culinaire unique</h3>
+                        </div>
+                        <p class="text-zinc-400 text-lg leading-relaxed">
+                            Au cœur de Cotonou, <span class="text-amber-400">Le Sommet de Zion</span> est bien plus qu'un restaurant : 
+                            c'est un voyage entre les saveurs ancestrales du Bénin et la finesse de la cuisine européenne.
+                        </p>
+                        <div class="grid grid-cols-3 gap-8 text-center">
+                            <div>
+                                <div class="text-4xl font-bold text-amber-400">100%</div>
+                                <div class="text-sm text-zinc-500 mt-1">Produits locaux</div>
+                            </div>
+                            <div>
+                                <div class="text-4xl font-bold text-amber-400">2</div>
+                                <div class="text-sm text-zinc-500 mt-1">Univers culinaires</div>
+                            </div>
+                            <div>
+                                <div class="text-4xl font-bold text-amber-400">∞</div>
+                                <div class="text-sm text-zinc-500 mt-1">Moments inoubliables</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PLATS PHARES -->
+        <section class="py-24 bg-black">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <span class="text-amber-400 uppercase tracking-widest text-sm">Nos coups de cœur</span>
+                    <h3 class="section-title text-5xl font-bold logo-font mt-3">Plats signature</h3>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Plat 1 -->
+                    <div class="food-card bg-zinc-900 rounded-3xl overflow-hidden group">
+                        <div class="h-72 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" 
+                                 alt="Akassa sauce gombo" 
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        </div>
+                        <div class="p-8">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-semibold text-2xl">Akassa Royal</h4>
+                                    <p class="text-amber-400 text-sm">Tradition béninoise</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="block text-3xl font-bold text-amber-400">8 500</span>
+                                    <span class="text-xs text-zinc-500">FCFA</span>
+                                </div>
+                            </div>
+                            <p class="text-zinc-400 text-sm mt-4 line-clamp-3">
+                                Akassa frais accompagné d'une sauce gombo aux crevettes et poisson braisé, servi avec une touche de crème fraîche européenne.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Plat 2 -->
+                    <div class="food-card bg-zinc-900 rounded-3xl overflow-hidden group">
+                        <div class="h-72 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" 
+                                 alt="Steak au poivre" 
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        </div>
+                        <div class="p-8">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-semibold text-2xl">Filet de Bœuf Zion</h4>
+                                    <p class="text-amber-400 text-sm">Fusion franco-béninoise</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="block text-3xl font-bold text-amber-400">22 000</span>
+                                    <span class="text-xs text-zinc-500">FCFA</span>
+                                </div>
+                            </div>
+                            <p class="text-zinc-400 text-sm mt-4 line-clamp-3">
+                                Filet de bœuf tendre, sauce poivre vert et piment béninois, accompagné de frites de manioc et légumes grillés.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Plat 3 -->
+                    <div class="food-card bg-zinc-900 rounded-3xl overflow-hidden group">
+                        <div class="h-72 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" 
+                                 alt="Dessert" 
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        </div>
+                        <div class="p-8">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-semibold text-2xl">Mango Passion Zion</h4>
+                                    <p class="text-amber-400 text-sm">Dessert signature</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="block text-3xl font-bold text-amber-400">6 500</span>
+                                    <span class="text-xs text-zinc-500">FCFA</span>
+                                </div>
+                            </div>
+                            <p class="text-zinc-400 text-sm mt-4 line-clamp-3">
+                                Mousse de mangue fraîche, coulis de fruit de la passion et crumble de noix de coco torréfiée.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOCALISATION TEASER -->
+        <section class="py-20 bg-gradient-to-b from-zinc-900 to-black">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <div class="inline-flex items-center gap-2 bg-amber-400/10 text-amber-400 px-6 py-3 rounded-full text-sm mb-6">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Cotonou, Littoral
+                </div>
+                <h3 class="text-4xl font-bold">Venez nous retrouver</h3>
+                <p class="text-zinc-400 mt-4 max-w-md mx-auto">
+                    À deux pas de la Marina, dans un cadre raffiné avec vue sur la ville lumière.
+                </p>
+                <button onclick="showPage(3)" 
+                        class="mt-10 bg-white text-black px-10 py-4 rounded-full font-medium hover:bg-amber-400 transition-colors">
+                    Voir sur la carte
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- PAGE 2 : MENU -->
+    <div id="page-2" class="page hidden min-h-screen bg-zinc-950 pt-20">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="text-center mb-16">
+                <span class="uppercase text-amber-400 text-sm tracking-[4px]">LA CARTE</span>
+                <h2 class="text-6xl font-bold logo-font mt-2">Nos saveurs</h2>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex justify-center gap-2 mb-12 border-b border-zinc-800 pb-2">
+                <button onclick="filterCategory(0)" id="tab-0" 
+                        class="tab-btn active px-8 py-3 rounded-full text-sm font-medium">Tout</button>
+                <button onclick="filterCategory(1)" id="tab-1" 
+                        class="tab-btn px-8 py-3 rounded-full text-sm font-medium">Tradition béninoise</button>
+                <button onclick="filterCategory(2)" id="tab-2" 
+                        class="tab-btn px-8 py-3 rounded-full text-sm font-medium">Européenne</button>
+                <button onclick="filterCategory(3)" id="tab-3" 
+                        class="tab-btn px-8 py-3 rounded-full text-sm font-medium">Desserts &amp; Boissons</button>
+            </div>
+
+            <!-- Grille des plats -->
+            <div id="menu-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Les cartes seront générées par JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3 : CONTACT -->
+    <div id="page-3" class="page hidden min-h-screen bg-zinc-950 pt-20">
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-12 gap-16">
+                <!-- Formulaire -->
+                <div class="md:col-span-5">
+                    <h2 class="text-5xl font-bold logo-font">Réservez votre table</h2>
+                    <p class="text-zinc-400 mt-6 leading-relaxed">
+                        Laissez-nous vous accueillir dans notre havre de paix culinaire.
+                    </p>
+
+                    <form id="reservation-form" class="mt-10 space-y-8">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest mb-2">Prénom</label>
+                                <input type="text" required 
+                                       class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-6 py-4 focus:outline-none focus:border-amber-400">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest mb-2">Nom</label>
+                                <input type="text" required 
+                                       class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-6 py-4 focus:outline-none focus:border-amber-400">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest mb-2">Email</label>
+                            <input type="email" required 
+                                   class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-6 py-4 focus:outline-none focus:border-amber-400">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest mb-2">Date</label>
+                                <input type="date" required 
+                                       class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-6 py-4 focus:outline-none focus:border-amber-400">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-widest mb-2">Heure</label>
+                                <select required 
+                                        class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-6 py-4 focus:outline-none focus:border-amber-400">
+                                    <option>19:00</option>
+                                    <option>19:30</option>
+                                    <option>20:00</option>
+                                    <option>20:30</option>
+                                    <option>21:00</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest mb-2">Nombre de personnes</label>
+                            <input type="number" min="1" value="2" required 
+                                   class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-6 py-4 focus:outline-none focus:border-amber-400">
+                        </div>
+
+                        <button type="submit" 
+                                class="w-full bg-amber-400 hover:bg-amber-300 text-zinc-950 font-semibold py-6 rounded-3xl text-lg transition">
+                            Confirmer ma réservation
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Infos + Carte -->
+                <div class="md:col-span-7">
+                    <div class="bg-zinc-900 rounded-3xl p-10">
+                        <div class="flex items-center gap-6 mb-10">
+                            <div class="w-16 h-16 bg-amber-400/10 rounded-2xl flex items-center justify-center text-4xl">📍</div>
+                            <div>
+                                <div class="font-medium">Carrefour des Ambassades</div>
+                                <div class="text-zinc-400">Cotonou, Bénin</div>
+                                <a href="https://goo.gl/maps/example" target="_blank" 
+                                   class="text-amber-400 text-sm hover:underline">Voir l'itinéraire →</a>
+                            </div>
+                        </div>
+
+                        <div class="space-y-8">
+                            <div class="flex gap-6">
+                                <i class="fas fa-phone text-2xl text-amber-400 mt-1"></i>
+                                <div>
+                                    <div class="font-medium">+229 62 45 78 90</div>
+                                    <div class="text-xs text-zinc-500">Appel ou WhatsApp</div>
+                                </div>
+                            </div>
+                            <div class="flex gap-6">
+                                <i class="fas fa-envelope text-2xl text-amber-400 mt-1"></i>
+                                <div>
+                                    <div class="font-medium">contact@sommetdezion.bj</div>
+                                </div>
+                            </div>
+                            <div class="flex gap-6">
+                                <i class="fas fa-clock text-2xl text-amber-400 mt-1"></i>
+                                <div>
+                                    <div class="font-medium">Ouvert tous les jours</div>
+                                    <div class="text-zinc-400">11h00 – 23h00</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Carte animée -->
+                        <div class="mt-12 map-container rounded-3xl overflow-hidden border border-zinc-800">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.5!2d2.425!3d6.366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1022!5e0!3m2!1sfr!2sbj!4v1700000000000" 
+                                width="100%" 
+                                height="340" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-16 border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 bg-amber-400 rounded-2xl flex items-center justify-center text-xl">⛰️</div>
+                    <div class="logo-font text-3xl">Sommet de Zion</div>
+                </div>
+                
+                <div class="text-zinc-500 text-sm flex gap-8">
+                    <a href="#" class="hover:text-white">Instagram</a>
+                    <a href="#" class="hover:text-white">Facebook</a>
+                    <a href="#" class="hover:text-white">WhatsApp</a>
+                </div>
+
+                <div class="text-xs text-zinc-600">
+                    © 2026 Le Sommet de Zion • Cotonou, Bénin
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script already loaded via CDN
+
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            document.getElementById(`page-${page}`).classList.remove('hidden');
+            
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Menu data
+        const menuItems = [
+            {
+                category: 1,
+                name: "Akassa aux crevettes",
+                desc: "Pâte de maïs fermentée servie avec sauce gombo et crevettes fraîches",
+                price: "7500",
+                img: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                category: 1,
+                name: "Poulet bicyclette braisé",
+                desc: "Poulet fermier mariné aux épices béninoises, braisé à la perfection",
+                price: "9500",
+                img: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                category: 1,
+                name: "Ignames pilées à l'huile rouge",
+                desc: "Ignames fraîches pilées avec sauce tomate épicée et poisson fumé",
+                price: "6500",
+                img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                category: 2,
+                name: "Steak au poivre vert",
+                desc: "Filet de bœuf français, sauce poivre vert et piment béninois",
+                price: "22500",
+                img: "https://images.unsplash.com/photo-1558030006-450675393462?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                category: 2,
+                name: "Pâtes aux fruits de mer",
+                desc: "Tagliatelles fraîches, crevettes, calamars et sauce tomate maison",
+                price: "16500",
+                img: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                category: 2,
+                name: "Saumon grillé",
+                desc: "Filet de saumon norvégien, légumes rôtis et sauce citronnée",
+                price: "19500",
+                img: "https://images.unsplash.com/photo-1574484284002-952d92456975?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                category: 3,
+                name: "Mango Zion",
+                desc: "Mousse de mangue, coulis passion et noix de coco caramélisée",
+                price: "6500",
+                img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                category: 3,
+                name: "Crème brûlée à l'hibiscus",
+                desc: "Crème brûlée infusée à la fleur d'hibiscus béninoise",
+                price: "5500",
+                img: "https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                category: 3,
+                name: "Cocktail Bissap Royale",
+                desc: "Jus de bissap, gin, sirop de gingembre et pétillant",
+                price: "4500",
+                img: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            }
+        ];
+
+        // Render menu
+        function renderMenu(filteredItems = menuItems) {
+            const container = document.getElementById('menu-grid');
+            container.innerHTML = '';
+            
+            filteredItems.forEach(item => {
+                const card = document.createElement('div');
+                card.className = `food-card bg-zinc-900 rounded-3xl overflow-hidden`;
+                card.innerHTML = `
+                    <div class="relative h-64">
+                        <img src="${item.img}" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute top-4 right-4 bg-black/70 text-amber-400 text-xs font-mono px-4 py-1 rounded-full">
+                            ${item.price} FCFA
+                        </div>
+                    </div>
+                    <div class="p-7">
+                        <h4 class="font-semibold text-xl">${item.name}</h4>
+                        <p class="text-zinc-400 text-sm mt-3 leading-relaxed">${item.desc}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Filter function
+        function filterCategory(cat) {
+            // Remove active from all tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active', 'bg-amber-400', 'text-black'));
+            
+            // Add active to clicked
+            const activeTab = document.getElementById(`tab-${cat}`);
+            if (activeTab) activeTab.classList.add('active', 'bg-amber-400', 'text-black');
+            
+            let filtered = menuItems;
+            
+            if (cat !== 0) {
+                filtered = menuItems.filter(item => item.category === cat);
+            }
+            
+            renderMenu(filtered);
+        }
+
+        // Form submit fake
+        document.getElementById('reservation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("✅ Merci ! Votre réservation a été prise en compte. Nous vous contacterons sous peu.");
+            this.reset();
+        });
+
+        // Initialisation
+        window.onload = function() {
+            // Render full menu on load
+            renderMenu();
+            
+            // Show accueil by default
+            showPage(1);
+            
+            // Keyboard escape for mobile menu
+            document.addEventListener('keydown', function(e) {
+                if (e.key === "Escape") {
+                    const mobile = document.getElementById('mobile-menu');
+                    if (!mobile.classList.contains('hidden')) toggleMobileMenu();
+                }
+            });
+        };
+    </script>
+</body>
+</html>
