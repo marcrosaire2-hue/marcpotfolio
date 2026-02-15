@@ -6,9 +6,9 @@
     <title>SABLE DOUX • 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
 
         :root {
             --sand: #e8d5b7;
@@ -18,6 +18,9 @@
 
         body {
             font-family: 'Inter', system-ui, sans-serif;
+            background-color: #0f1e2e;
+            color: white;
+            overflow-x: hidden;
         }
 
         .logo-font {
@@ -29,11 +32,10 @@
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
         }
 
         .wave {
-            animation: wave 8s linear infinite;
+            animation: wave 12s linear infinite;
         }
 
         @keyframes wave {
@@ -42,12 +44,12 @@
         }
 
         .palm {
-            animation: palm-sway 6s ease-in-out infinite;
+            animation: palm-sway 8s ease-in-out infinite;
         }
 
         @keyframes palm-sway {
-            0%, 100% { transform: rotate(-8deg); }
-            50% { transform: rotate(8deg); }
+            0%, 100% { transform: rotate(-6deg); }
+            50% { transform: rotate(6deg); }
         }
 
         .card-hover {
@@ -55,119 +57,147 @@
         }
 
         .card-hover:hover {
-            transform: translateY(-15px) scale(1.03);
+            transform: translateY(-12px) scale(1.02);
+        }
+
+        /* Améliorations mobile */
+        @media (max-width: 640px) {
+            .hero-bg {
+                background-attachment: scroll;
+                min-height: 80vh;
+            }
+            h1.text-[92px] { font-size: 4.5rem; line-height: 0.95; }
+            h1.text-[120px] { font-size: 5.5rem; }
+            .text-2xl { font-size: 1.35rem; }
+            .text-3xl { font-size: 1.7rem; }
+            .px-6 { padding-left: 1.25rem; padding-right: 1.25rem; }
+            .py-28, .py-32 { padding-top: 5rem; padding-bottom: 5rem; }
+            .py-24 { padding-top: 4rem; padding-bottom: 4rem; }
         }
     </style>
 </head>
-<body class="bg-[#0f1e2e] text-white overflow-x-hidden">
+<body class="overflow-x-hidden">
 
     <!-- NAVBAR -->
-    <nav class="fixed top-0 w-full z-50 bg-[#0a1724]/80 backdrop-blur-lg border-b border-white/10">
-        <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div class="text-3xl">🌴</div>
-                <h1 class="logo-font text-4xl tracking-tighter font-bold text-[#ff8c42]">SABLE DOUX</h1>
+    <nav class="fixed top-0 w-full z-50 bg-[#0a1724]/90 backdrop-blur-lg border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="text-2xl sm:text-3xl">🌴</div>
+                <h1 class="logo-font text-2xl sm:text-4xl tracking-tighter font-bold text-[#ff8c42]">SABLE DOUX</h1>
             </div>
-            <div class="hidden md:flex items-center gap-10 text-sm font-medium">
+
+            <!-- Menu desktop -->
+            <div class="hidden md:flex items-center gap-8 lg:gap-12 text-sm font-medium">
                 <a href="#about" class="hover:text-[#ff8c42] transition">L'événement</a>
                 <a href="#programme" class="hover:text-[#ff8c42] transition">Programme</a>
                 <a href="#inscription" class="hover:text-[#ff8c42] transition">Inscription</a>
             </div>
+
+            <!-- Bouton desktop -->
             <a href="#inscription" 
-               class="bg-[#ff8c42] hover:bg-[#ff6b1a] text-[#0a1724] font-semibold px-8 py-3 rounded-full text-sm transition flex items-center gap-3">
+               class="hidden md:flex bg-[#ff8c42] hover:bg-[#ff6b1a] text-[#0a1724] font-semibold px-6 py-3 rounded-full text-sm transition items-center gap-2">
                 <i class="fas fa-ticket-alt"></i>
-                RÉSERVER MA PLACE
+                RÉSERVER
             </a>
+
+            <!-- Hamburger mobile -->
+            <button id="menu-btn" class="md:hidden text-3xl text-[#ff8c42]">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Menu mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0a1724]/95 border-t border-white/10 py-8 px-6">
+            <div class="flex flex-col items-center gap-8 text-lg font-medium">
+                <a href="#about" onclick="toggleMobileMenu()" class="hover:text-[#ff8c42] transition">L'événement</a>
+                <a href="#programme" onclick="toggleMobileMenu()" class="hover:text-[#ff8c42] transition">Programme</a>
+                <a href="#inscription" onclick="toggleMobileMenu()" class="hover:text-[#ff8c42] transition">Inscription</a>
+                <a href="#inscription" onclick="toggleMobileMenu()" 
+                   class="mt-4 w-full bg-[#ff8c42] hover:bg-[#ff6b1a] text-[#0a1724] py-4 rounded-full text-center font-semibold transition">
+                    RÉSERVER MA PLACE
+                </a>
+            </div>
         </div>
     </nav>
 
     <!-- HERO -->
-    <section class="hero-bg h-screen flex items-center relative">
-        <div class="max-w-4xl mx-auto px-6 text-center z-10">
-            <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-8 py-3 rounded-full mb-8">
+    <section class="hero-bg min-h-[70vh] sm:min-h-screen flex items-center relative pt-20 sm:pt-0">
+        <div class="max-w-4xl mx-auto px-5 sm:px-6 text-center z-10">
+            <div class="inline-flex items-center gap-2 sm:gap-3 bg-white/10 backdrop-blur-md px-5 sm:px-8 py-2 sm:py-3 rounded-full mb-6 sm:mb-8 text-xs sm:text-sm">
                 <div class="w-2 h-2 bg-[#ff8c42] rounded-full animate-pulse"></div>
-                <span class="uppercase text-xs tracking-[4px] font-medium">15 • 16 • 17 AVRIL 2026</span>
+                <span class="uppercase tracking-[3px] sm:tracking-[4px] font-medium">15 • 16 • 17 AVRIL 2026</span>
             </div>
 
-            <h1 class="logo-font text-[92px] md:text-[120px] leading-none font-bold tracking-[-4px] mb-4 text-white">
+            <h1 class="logo-font text-5xl sm:text-[92px] md:text-[120px] leading-none font-bold tracking-[-2px] sm:tracking-[-4px] mb-4 sm:mb-6 text-white">
                 SABLE<br>DOUX
             </h1>
 
-            <p class="text-2xl md:text-3xl text-[#e8d5b7] font-light max-w-2xl mx-auto">
+            <p class="text-lg sm:text-2xl md:text-3xl text-[#e8d5b7] font-light max-w-xl mx-auto px-2">
                 Trois jours de douceur tropicale sur la plus belle plage de Cotonou
             </p>
 
-            <div class="mt-12 flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <div class="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
                 <a href="#inscription" 
-                   class="bg-white text-[#0a1724] px-14 py-6 rounded-2xl font-semibold text-xl hover:bg-[#ff8c42] hover:text-white transition-all flex items-center gap-4 group">
+                   class="bg-white text-[#0a1724] px-10 sm:px-14 py-5 sm:py-6 rounded-2xl font-semibold text-lg sm:text-xl hover:bg-[#ff8c42] hover:text-white transition-all flex items-center justify-center gap-3 shadow-lg w-full sm:w-auto">
                     JE RÉSERVE
-                    <span class="text-3xl group-hover:rotate-12 transition">🌊</span>
+                    <span class="text-2xl sm:text-3xl">🌊</span>
                 </a>
                 
-                <div class="flex items-center gap-8 text-sm">
+                <div class="flex items-center gap-6 sm:gap-8 text-xs sm:text-sm mt-4 sm:mt-0">
                     <div>
                         <div class="font-mono text-[#ff8c42]">15 AVRIL</div>
-                        <div class="text-xs text-white/60">OUVERTURE</div>
+                        <div class="text-white/60">OUVERTURE</div>
                     </div>
-                    <div class="h-12 w-px bg-white/20"></div>
+                    <div class="h-8 sm:h-12 w-px bg-white/20"></div>
                     <div>
                         <div class="font-mono text-[#ff8c42]">FIDJROSSÈ</div>
-                        <div class="text-xs text-white/60">COTONOU • BÉNIN</div>
+                        <div class="text-white/60">COTONOU • BÉNIN</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Décoration tropicale -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-12 text-4xl opacity-30">
+        <!-- Palmiers décoratifs (moins visibles sur mobile) -->
+        <div class="absolute bottom-8 sm:bottom-10 left-1/2 -translate-x-1/2 flex gap-8 sm:gap-12 text-3xl sm:text-4xl opacity-25 sm:opacity-30">
             <div class="palm">🌴</div>
-            <div class="palm" style="animation-delay: 2s;">🌴</div>
-            <div class="palm" style="animation-delay: 4s;">🌴</div>
+            <div class="palm hidden sm:block" style="animation-delay: 2s;">🌴</div>
+            <div class="palm hidden sm:block" style="animation-delay: 4s;">🌴</div>
         </div>
 
-        <!-- Vague décorative -->
-        <div class="absolute bottom-0 left-0 w-[200%] h-24 bg-[url('https://i.imgur.com/0oG8z2Z.png')] bg-repeat-x wave opacity-30"></div>
+        <!-- Vague (plus lente et discrète sur mobile) -->
+        <div class="absolute bottom-0 left-0 w-[200%] h-16 sm:h-24 bg-[url('https://i.imgur.com/0oG8z2Z.png')] bg-repeat-x wave opacity-20 sm:opacity-30"></div>
     </section>
 
     <!-- DESCRIPTION -->
-    <section id="about" class="py-28 bg-[#0a1724]">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div>
-                    <span class="text-[#ff8c42] uppercase tracking-widest text-sm">Une expérience unique</span>
-                    <h2 class="logo-font text-6xl font-bold mt-4 leading-none">Sable doux,<br>esprit léger</h2>
-                    <p class="mt-8 text-lg text-white/80 leading-relaxed">
+    <section id="about" class="py-16 sm:py-28 bg-[#0a1724]">
+        <div class="max-w-5xl mx-auto px-5 sm:px-6">
+            <div class="grid md:grid-cols-2 gap-10 sm:gap-16 items-center">
+                <div class="order-2 md:order-1">
+                    <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Plage tropicale" 
+                         class="rounded-3xl shadow-2xl w-full h-auto aspect-[4/5] sm:aspect-auto">
+                </div>
+
+                <div class="order-1 md:order-2 space-y-6 sm:space-y-8">
+                    <span class="text-[#ff8c42] uppercase tracking-widest text-xs sm:text-sm">Une expérience unique</span>
+                    <h2 class="logo-font text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">Sable doux,<br>esprit léger</h2>
+                    <p class="text-base sm:text-lg text-white/80 leading-relaxed">
                         SABLE DOUX est le rendez-vous chill ultime de l'année. 
-                        Trois jours de musique douce, de cocktails tropicaux, de bains de mer, 
-                        d'ateliers bien-être et de rencontres sous les cocotiers.
+                        Trois jours de musique douce, cocktails tropicaux, bains de mer, 
+                        ateliers bien-être et rencontres sous les cocotiers.
                     </p>
-                    <p class="mt-6 text-lg text-white/80 leading-relaxed">
+                    <p class="text-base sm:text-lg text-white/80 leading-relaxed">
                         Pas de foule, pas de stress. Juste du sable chaud, des sourires et des vibes qui font du bien.
                     </p>
 
-                    <div class="mt-12 flex gap-8">
+                    <div class="mt-8 flex gap-6 sm:gap-8">
                         <div>
-                            <div class="text-5xl font-bold text-[#ff8c42]">300</div>
-                            <div class="text-sm text-white/60">Places limitées</div>
+                            <div class="text-4xl sm:text-5xl font-bold text-[#ff8c42]">300</div>
+                            <div class="text-xs sm:text-sm text-white/60">Places limitées</div>
                         </div>
                         <div>
-                            <div class="text-5xl font-bold text-[#ff8c42]">3</div>
-                            <div class="text-sm text-white/60">Jours de pur bonheur</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                         alt="Plage tropicale" 
-                         class="rounded-3xl shadow-2xl">
-                    <div class="absolute -bottom-6 -left-6 bg-white/10 backdrop-blur-xl p-6 rounded-3xl border border-white/20">
-                        <div class="flex items-center gap-4">
-                            <div class="text-4xl">🍹</div>
-                            <div>
-                                <div class="font-semibold">Cocktails signature</div>
-                                <div class="text-xs text-white/60">Bissap mojito • Coco sunset</div>
-                            </div>
+                            <div class="text-4xl sm:text-5xl font-bold text-[#ff8c42]">3</div>
+                            <div class="text-xs sm:text-sm text-white/60">Jours de pur bonheur</div>
                         </div>
                     </div>
                 </div>
@@ -176,60 +206,60 @@
     </section>
 
     <!-- PROGRAMME -->
-    <section id="programme" class="py-24 bg-gradient-to-b from-[#0a1724] to-[#1a2a3f]">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="text-[#ff8c42] uppercase text-sm tracking-widest">Au programme</span>
-                <h3 class="logo-font text-5xl font-bold mt-3">Ce qui t'attend</h3>
+    <section id="programme" class="py-16 sm:py-24 bg-gradient-to-b from-[#0a1724] to-[#1a2a3f]">
+        <div class="max-w-6xl mx-auto px-5 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16">
+                <span class="text-[#ff8c42] uppercase text-xs sm:text-sm tracking-widest">Au programme</span>
+                <h3 class="logo-font text-3xl sm:text-4xl md:text-5xl font-bold mt-3 section-title">Ce qui t'attend</h3>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-[#0f1e2e] rounded-3xl p-8 card-hover">
-                    <div class="text-6xl mb-6">🎶</div>
-                    <h4 class="text-2xl font-semibold">Live Music Chill</h4>
-                    <p class="text-white/70 mt-4">DJ sets, guitares acoustiques, afro-soul et sunset sessions tous les soirs.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div class="bg-[#0f1e2e] rounded-3xl p-6 sm:p-8 card-hover">
+                    <div class="text-5xl sm:text-6xl mb-4 sm:mb-6">🎶</div>
+                    <h4 class="text-xl sm:text-2xl font-semibold">Live Music Chill</h4>
+                    <p class="text-white/70 mt-3 sm:mt-4 text-sm sm:text-base">DJ sets, guitares acoustiques, afro-soul et sunset sessions tous les soirs.</p>
                 </div>
-                <div class="bg-[#0f1e2e] rounded-3xl p-8 card-hover">
-                    <div class="text-6xl mb-6">🧘</div>
-                    <h4 class="text-2xl font-semibold">Bien-être & Yoga</h4>
-                    <p class="text-white/70 mt-4">Cours de yoga sur la plage, méditation guidée, massages et ateliers de respiration.</p>
+                <div class="bg-[#0f1e2e] rounded-3xl p-6 sm:p-8 card-hover">
+                    <div class="text-5xl sm:text-6xl mb-4 sm:mb-6">🧘</div>
+                    <h4 class="text-xl sm:text-2xl font-semibold">Bien-être & Yoga</h4>
+                    <p class="text-white/70 mt-3 sm:mt-4 text-sm sm:text-base">Cours de yoga sur la plage, méditation guidée, massages et ateliers de respiration.</p>
                 </div>
-                <div class="bg-[#0f1e2e] rounded-3xl p-8 card-hover">
-                    <div class="text-6xl mb-6">🍍</div>
-                    <h4 class="text-2xl font-semibold">Food & Drinks</h4>
-                    <p class="text-white/70 mt-4">Street-food tropicale, fruits frais, grillades de poisson et cocktails à volonté.</p>
+                <div class="bg-[#0f1e2e] rounded-3xl p-6 sm:p-8 card-hover">
+                    <div class="text-5xl sm:text-6xl mb-4 sm:mb-6">🍍</div>
+                    <h4 class="text-xl sm:text-2xl font-semibold">Food & Drinks</h4>
+                    <p class="text-white/70 mt-3 sm:mt-4 text-sm sm:text-base">Street-food tropicale, fruits frais, grillades de poisson et cocktails à volonté.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- INSCRIPTION -->
-    <section id="inscription" class="py-32 bg-[#0a1724] relative overflow-hidden">
-        <div class="max-w-2xl mx-auto px-6 text-center">
-            <div class="mb-12">
-                <span class="bg-[#ff8c42] text-[#0a1724] text-xs font-bold px-6 py-3 rounded-full">PLACES TRÈS LIMITÉES</span>
+    <section id="inscription" class="py-20 sm:py-32 bg-[#0a1724] relative overflow-hidden">
+        <div class="max-w-2xl mx-auto px-5 sm:px-6 text-center">
+            <div class="mb-8 sm:mb-12">
+                <span class="bg-[#ff8c42] text-[#0a1724] text-xs sm:text-sm font-bold px-5 sm:px-6 py-2 sm:py-3 rounded-full">PLACES TRÈS LIMITÉES</span>
             </div>
 
-            <h2 class="logo-font text-7xl font-bold leading-none mb-8">Rejoins le sable doux</h2>
+            <h2 class="logo-font text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6 sm:mb-8">Rejoins le sable doux</h2>
             
-            <p class="text-2xl text-[#e8d5b7] max-w-md mx-auto">
+            <p class="text-lg sm:text-2xl text-[#e8d5b7] max-w-md mx-auto px-2">
                 Réserve ta place dès maintenant et vis l'expérience la plus douce de l'année.
             </p>
 
             <!-- Formulaire -->
-            <form id="form-inscription" class="mt-16 bg-[#0f1e2e] rounded-3xl p-10 md:p-14">
-                <div class="grid grid-cols-2 gap-6">
+            <form id="form-inscription" class="mt-10 sm:mt-16 bg-[#0f1e2e] rounded-3xl p-6 sm:p-10 md:p-14">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
                     <input type="text" placeholder="Prénom" required 
-                           class="bg-[#1a2a3f] border-0 rounded-2xl px-6 py-5 focus:outline-none focus:ring-2 focus:ring-[#ff8c42]">
+                           class="bg-[#1a2a3f] border-0 rounded-2xl px-5 sm:px-6 py-4 sm:py-5 text-base focus:outline-none focus:ring-2 focus:ring-[#ff8c42]">
                     <input type="text" placeholder="Nom" required 
-                           class="bg-[#1a2a3f] border-0 rounded-2xl px-6 py-5 focus:outline-none focus:ring-2 focus:ring-[#ff8c42]">
+                           class="bg-[#1a2a3f] border-0 rounded-2xl px-5 sm:px-6 py-4 sm:py-5 text-base focus:outline-none focus:ring-2 focus:ring-[#ff8c42]">
                 </div>
                 <input type="email" placeholder="Email" required 
-                       class="mt-6 w-full bg-[#1a2a3f] border-0 rounded-2xl px-6 py-5 focus:outline-none focus:ring-2 focus:ring-[#ff8c42]">
+                       class="mt-5 sm:mt-6 w-full bg-[#1a2a3f] border-0 rounded-2xl px-5 sm:px-6 py-4 sm:py-5 text-base focus:outline-none focus:ring-2 focus:ring-[#ff8c42]">
                 <input type="tel" placeholder="WhatsApp" required 
-                       class="mt-6 w-full bg-[#1a2a3f] border-0 rounded-2xl px-6 py-5 focus:outline-none focus:ring-2 focus:ring-[#ff8c42]">
+                       class="mt-5 sm:mt-6 w-full bg-[#1a2a3f] border-0 rounded-2xl px-5 sm:px-6 py-4 sm:py-5 text-base focus:outline-none focus:ring-2 focus:ring-[#ff8c42]">
 
-                <select required class="mt-6 w-full bg-[#1a2a3f] border-0 rounded-2xl px-6 py-5 focus:outline-none focus:ring-2 focus:ring-[#ff8c42]">
+                <select required class="mt-5 sm:mt-6 w-full bg-[#1a2a3f] border-0 rounded-2xl px-5 sm:px-6 py-4 sm:py-5 text-base focus:outline-none focus:ring-2 focus:ring-[#ff8c42]">
                     <option value="">Je viens pour...</option>
                     <option>Les 3 jours complets</option>
                     <option>Le vendredi soir seulement</option>
@@ -238,19 +268,19 @@
                 </select>
 
                 <button type="submit" 
-                        class="mt-10 w-full bg-[#ff8c42] hover:bg-white hover:text-[#0a1724] text-[#0a1724] font-bold py-7 rounded-2xl text-xl transition-all">
+                        class="mt-8 sm:mt-10 w-full bg-[#ff8c42] hover:bg-white hover:text-[#0a1724] text-[#0a1724] font-bold py-5 sm:py-7 rounded-2xl text-lg sm:text-xl transition-all">
                     JE RÉSERVE MA PLACE • 25 000 FCFA
                 </button>
 
-                <p class="text-xs text-white/50 mt-6">Paiement sécurisé • Confirmation immédiate par WhatsApp</p>
+                <p class="text-xs sm:text-sm text-white/50 mt-5 sm:mt-6">Paiement sécurisé • Confirmation immédiate par WhatsApp</p>
             </form>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-black py-16">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <div class="flex justify-center gap-12 text-4xl mb-10 opacity-40">
+    <footer class="bg-black py-12 sm:py-16">
+        <div class="max-w-6xl mx-auto px-5 sm:px-6 text-center">
+            <div class="flex justify-center gap-8 sm:gap-12 text-3xl sm:text-4xl mb-8 sm:mb-10 opacity-30 sm:opacity-40">
                 🌴 🏖️ 🌊 🍹
             </div>
             <p class="text-white/40 text-sm">© 2026 SABLE DOUX • Cotonou, Bénin</p>
@@ -259,23 +289,41 @@
     </footer>
 
     <script>
-        // Tailwind already loaded
+        // Menu mobile
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
 
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = menuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Fermeture auto au clic extérieur (optionnel)
+        document.addEventListener('click', e => {
+            if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target) && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                const icon = menuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+        });
+
+        // Formulaire fake submit
         document.getElementById('form-inscription').addEventListener('submit', function(e) {
             e.preventDefault();
             alert("🎉 Félicitations ! Ta réservation pour SABLE DOUX est confirmée.\n\nTu recevras les détails par WhatsApp dans les prochaines minutes.");
             this.reset();
         });
 
-        // Scroll smooth
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                if (this.getAttribute('href') !== '#') {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
         });
     </script>

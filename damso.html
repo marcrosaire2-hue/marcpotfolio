@@ -24,10 +24,9 @@
         }
 
         .hero-bg {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('r1.jpg') ;
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url('r1.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
         }
 
         .service-card {
@@ -35,8 +34,8 @@
         }
 
         .service-card:hover {
-            transform: translateY(-12px) scale(1.04);
-            box-shadow: 0 25px 50px -12px rgba(180, 115, 51, 0.3);
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgba(184, 115, 51, 0.25);
         }
 
         .nav-link {
@@ -54,19 +53,34 @@
             transition: width 0.3s ease;
         }
 
-        .nav-link:hover:after {
+        .nav-link:hover:after,
+        .nav-link.active:after {
             width: 100%;
         }
 
         .section-title:after {
             content: '';
             position: absolute;
-            width: 70px;
+            width: 60px;
             height: 3px;
             background: linear-gradient(to right, var(--copper), #f5d5b5);
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
+        }
+
+        /* Améliorations mobile */
+        @media (max-width: 640px) {
+            .hero-bg {
+                background-attachment: scroll;
+                min-height: 70vh;
+            }
+            h2.text-6xl { font-size: 2.8rem; line-height: 1.05; }
+            h2.text-5xl { font-size: 2.4rem; }
+            .text-2xl { font-size: 1.4rem; }
+            .text-3xl { font-size: 1.8rem; }
+            .px-6 { padding-left: 1rem; padding-right: 1rem; }
+            .py-24 { padding-top: 4rem; padding-bottom: 4rem; }
         }
     </style>
 </head>
@@ -74,56 +88,63 @@
 
     <!-- NAVBAR -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-zinc-800">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-11 h-11 bg-gradient-to-br from-amber-600 to-amber-400 rounded-full flex items-center justify-center text-2xl shadow-lg">✂️</div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 bg-gradient-to-br from-amber-600 to-amber-400 rounded-full flex items-center justify-center text-xl shadow-lg">✂️</div>
                 <div>
-                    <h1 class="logo-font text-4xl font-bold tracking-tight text-amber-400">Chez Damso</h1>
-                    <p class="text-xs text-zinc-400 tracking-widest uppercase -mt-1">Coiffure Premium</p>
+                    <h1 class="logo-font text-2xl sm:text-3xl font-bold tracking-tight text-amber-400">Chez Damso</h1>
+                    <p class="text-[10px] sm:text-xs text-zinc-400 tracking-widest uppercase -mt-1">Coiffure Premium</p>
                 </div>
             </div>
 
-            <div class="hidden md:flex items-center gap-10 text-sm font-medium">
+            <!-- Menu desktop -->
+            <div class="hidden md:flex items-center gap-8 lg:gap-10 text-sm font-medium">
                 <a href="#" onclick="showPage(1)" class="nav-link hover:text-amber-300 transition">Accueil</a>
                 <a href="#" onclick="showPage(2)" class="nav-link hover:text-amber-300 transition">Services</a>
                 <a href="#" onclick="showPage(3)" class="nav-link hover:text-amber-300 transition">RDV & Contact</a>
             </div>
 
-            <a href="#" onclick="showPage(3)" class="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-8 py-3 rounded-full text-sm flex items-center gap-2 transition">
-                <i class="fas fa-calendar-check"></i> Prendre RDV
+            <!-- Bouton RDV desktop -->
+            <a href="#" onclick="showPage(3)" class="hidden md:flex bg-amber-600 hover:bg-amber-500 text-white font-semibold px-6 py-2.5 rounded-full text-sm items-center gap-2 transition">
+                <i class="fas fa-calendar-check"></i> RDV
             </a>
 
-            <button onclick="toggleMobileMenu()" class="md:hidden text-3xl">
+            <!-- Hamburger -->
+            <button id="menu-btn" class="md:hidden text-2xl text-amber-400">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-zinc-800 py-8">
-            <div class="flex flex-col items-center gap-8 text-lg">
-                <a href="#" onclick="showPage(1);toggleMobileMenu()" class="hover:text-amber-400">Accueil</a>
-                <a href="#" onclick="showPage(2);toggleMobileMenu()" class="hover:text-amber-400">Services</a>
-                <a href="#" onclick="showPage(3);toggleMobileMenu()" class="hover:text-amber-400">Contact</a>
+        <!-- Menu mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-t border-zinc-800 py-8 px-6">
+            <div class="flex flex-col items-center gap-8 text-lg font-medium">
+                <a href="#" onclick="showPage(1); toggleMobileMenu()" class="hover:text-amber-400 transition">Accueil</a>
+                <a href="#" onclick="showPage(2); toggleMobileMenu()" class="hover:text-amber-400 transition">Services</a>
+                <a href="#" onclick="showPage(3); toggleMobileMenu()" class="hover:text-amber-400 transition">RDV & Contact</a>
+                <a href="#" onclick="showPage(3); toggleMobileMenu()" class="mt-4 w-full bg-amber-600 hover:bg-amber-500 text-white py-4 rounded-full text-center font-semibold transition">
+                    Prendre RDV
+                </a>
             </div>
         </div>
     </nav>
 
     <!-- PAGE 1 : ACCUEIL -->
-    <div id="page-1" class="min-h-screen">
-        <section class="hero-bg h-screen flex items-center">
-            <div class="max-w-5xl mx-auto px-6 text-center">
-                <span class="inline-block bg-amber-600/30 text-amber-300 px-6 py-2 rounded-full text-sm tracking-widest mb-6">Cotonou • Bénin</span>
-                <h2 class="text-6xl md:text-8xl font-bold logo-font leading-none mb-6">
+    <div id="page-1">
+        <section class="hero-bg min-h-[70vh] sm:min-h-screen flex items-center pt-20 sm:pt-0">
+            <div class="max-w-5xl mx-auto px-5 sm:px-6 text-center">
+                <span class="inline-block bg-amber-600/30 text-amber-300 px-5 py-1.5 rounded-full text-xs sm:text-sm tracking-widest mb-4 sm:mb-6">Cotonou • Bénin</span>
+                <h2 class="text-4xl sm:text-6xl md:text-8xl font-bold logo-font leading-tight mb-4 sm:mb-6">
                     CHEZ DAMSO
                 </h2>
-                <p class="text-2xl md:text-3xl text-amber-300 font-light max-w-3xl mx-auto">
+                <p class="text-xl sm:text-2xl md:text-3xl text-amber-300 font-light max-w-3xl mx-auto">
                     L'art de la coiffure afro & moderne réinventé
                 </p>
 
-                <div class="mt-12 flex flex-col sm:flex-row gap-6 justify-center">
-                    <a href="#" onclick="showPage(2)" class="bg-amber-600 hover:bg-amber-500 px-10 py-5 rounded-full text-lg font-semibold transition flex items-center justify-center gap-3">
-                        Voir les services <span class="text-xl">→</span>
+                <div class="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+                    <a href="#" onclick="showPage(2)" class="bg-amber-600 hover:bg-amber-500 px-8 sm:px-10 py-4 sm:py-5 rounded-full text-base sm:text-lg font-semibold transition flex items-center justify-center gap-2 shadow-lg">
+                        Voir les services <span class="text-lg sm:text-xl">→</span>
                     </a>
-                    <a href="#" onclick="showPage(3)" class="border-2 border-amber-500 hover:bg-amber-500/20 px-10 py-5 rounded-full text-lg font-semibold transition">
+                    <a href="#" onclick="showPage(3)" class="border-2 border-amber-500 hover:bg-amber-500/20 px-8 sm:px-10 py-4 sm:py-5 rounded-full text-base sm:text-lg font-semibold transition">
                         Réserver maintenant
                     </a>
                 </div>
@@ -131,31 +152,31 @@
         </section>
 
         <!-- À PROPOS -->
-        <section class="py-24 bg-black">
-            <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-                <div>
+        <section class="py-16 sm:py-24 bg-black">
+            <div class="max-w-6xl mx-auto px-5 sm:px-6 grid md:grid-cols-2 gap-10 sm:gap-16 items-center">
+                <div class="order-2 md:order-1">
                     <img src="r2.jpg" 
                          alt="Coiffure afro élégante" 
-                         class="rounded-3xl shadow-2xl w-full h-auto object-cover">
+                         class="rounded-3xl shadow-2xl w-full h-auto object-cover aspect-[4/5] sm:aspect-auto">
                 </div>
-                <div class="space-y-8">
-                    <span class="uppercase text-amber-400 text-sm tracking-widest">Depuis Cotonou</span>
-                    <h3 class="text-5xl font-bold logo-font">Votre style,<br>notre passion</h3>
-                    <p class="text-zinc-300 text-lg leading-relaxed">
+                <div class="order-1 md:order-2 space-y-6 sm:space-y-8">
+                    <span class="uppercase text-amber-400 text-xs sm:text-sm tracking-widest">Depuis Cotonou</span>
+                    <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold logo-font">Votre style,<br>notre passion</h3>
+                    <p class="text-zinc-300 text-base sm:text-lg leading-relaxed">
                         Chez Damso, nous sublimons tous les types de cheveux : afro, crépus, frisés, défrisés, tresses, locks, coupes homme modernes, colorations tendances…
                     </p>
-                    <div class="grid grid-cols-3 gap-6 text-center">
+                    <div class="grid grid-cols-3 gap-4 sm:gap-6 text-center">
                         <div>
-                            <div class="text-5xl font-bold text-amber-400">5+</div>
-                            <div class="text-sm text-zinc-500">Ans d'expérience</div>
+                            <div class="text-4xl sm:text-5xl font-bold text-amber-400">5+</div>
+                            <div class="text-xs sm:text-sm text-zinc-500">Ans d'expérience</div>
                         </div>
                         <div>
-                            <div class="text-5xl font-bold text-amber-400">∞</div>
-                            <div class="text-sm text-zinc-500">Styles uniques</div>
+                            <div class="text-4xl sm:text-5xl font-bold text-amber-400">∞</div>
+                            <div class="text-xs sm:text-sm text-zinc-500">Styles uniques</div>
                         </div>
                         <div>
-                            <div class="text-5xl font-bold text-amber-400">100%</div>
-                            <div class="text-sm text-zinc-500">Satisfaction</div>
+                            <div class="text-4xl sm:text-5xl font-bold text-amber-400">100%</div>
+                            <div class="text-xs sm:text-sm text-zinc-500">Satisfaction</div>
                         </div>
                     </div>
                 </div>
@@ -164,136 +185,131 @@
     </div>
 
     <!-- PAGE 2 : SERVICES -->
-    <div id="page-2" class="hidden min-h-screen pt-24 bg-gradient-to-b from-black to-zinc-950">
-        <div class="max-w-7xl mx-auto px-6 py-16">
-            <div class="text-center mb-16">
-                <span class="uppercase text-amber-400 tracking-widest text-sm">Nos prestations</span>
-                <h2 class="text-6xl font-bold logo-font mt-3 section-title">Services signature</h2>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Service 1 : Box Braids -->
-                <div class="service-card bg-zinc-900 rounded-3xl overflow-hidden">
-                    <div class="h-80 overflow-hidden">
-                        <img src="r3.jpg" 
-                             alt="Box Braids élégantes" 
-                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-8">
-                        <h4 class="text-2xl font-semibold">Box Braids & Twists</h4>
-                        <p class="text-amber-400 mt-1">Protectives & tendance</p>
-                        <p class="text-zinc-400 mt-4">À partir de 15 000 FCFA</p>
-                    </div>
+    <div id="page-2" class="hidden">
+        <section class="py-16 sm:py-24 bg-gradient-to-b from-black to-zinc-950">
+            <div class="max-w-7xl mx-auto px-5 sm:px-6">
+                <div class="text-center mb-12 sm:mb-16">
+                    <span class="uppercase text-amber-400 tracking-widest text-xs sm:text-sm">Nos prestations</span>
+                    <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold logo-font mt-3 section-title">Services signature</h2>
                 </div>
 
-                <!-- Service 2 : Coupe homme fade -->
-                <div class="service-card bg-zinc-900 rounded-3xl overflow-hidden">
-                    <div class="h-80 overflow-hidden">
-                        <img src="r4.jpg" 
-                             alt="Coupe fade homme moderne" 
-                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                    <div class="service-card bg-zinc-900 rounded-3xl overflow-hidden">
+                        <div class="aspect-[4/5] sm:aspect-video overflow-hidden">
+                            <img src="r3.jpg" alt="Box Braids" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        </div>
+                        <div class="p-6 sm:p-8">
+                            <h4 class="text-xl sm:text-2xl font-semibold">Box Braids & Twists</h4>
+                            <p class="text-amber-400 text-sm sm:text-base mt-1">Protectives & tendance</p>
+                            <p class="text-zinc-400 text-sm sm:text-base mt-3">À partir de 15 000 FCFA</p>
+                        </div>
                     </div>
-                    <div class="p-8">
-                        <h4 class="text-2xl font-semibold">Coupes Homme Premium</h4>
-                        <p class="text-amber-400 mt-1">Fade, taper, design</p>
-                        <p class="text-zinc-400 mt-4">À partir de 5 000 FCFA</p>
-                    </div>
-                </div>
 
-                <!-- Service 3 : Lissage & Colorations -->
-                <div class="service-card bg-zinc-900 rounded-3xl overflow-hidden">
-                    <div class="h-80 overflow-hidden">
-                        <img src="r5.jpg" 
-                             alt="Cheveux lisses après soin" 
-                             class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    <div class="service-card bg-zinc-900 rounded-3xl overflow-hidden">
+                        <div class="aspect-[4/5] sm:aspect-video overflow-hidden">
+                            <img src="r4.jpg" alt="Coupe fade" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        </div>
+                        <div class="p-6 sm:p-8">
+                            <h4 class="text-xl sm:text-2xl font-semibold">Coupes Homme Premium</h4>
+                            <p class="text-amber-400 text-sm sm:text-base mt-1">Fade, taper, design</p>
+                            <p class="text-zinc-400 text-sm sm:text-base mt-3">À partir de 5 000 FCFA</p>
+                        </div>
                     </div>
-                    <div class="p-8">
-                        <h4 class="text-2xl font-semibold">Lissage & Colorations</h4>
-                        <p class="text-amber-400 mt-1">Kératine, balayage, ombré</p>
-                        <p class="text-zinc-400 mt-4">Sur devis</p>
+
+                    <div class="service-card bg-zinc-900 rounded-3xl overflow-hidden">
+                        <div class="aspect-[4/5] sm:aspect-video overflow-hidden">
+                            <img src="r5.jpg" alt="Lissage & Colorations" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                        </div>
+                        <div class="p-6 sm:p-8">
+                            <h4 class="text-xl sm:text-2xl font-semibold">Lissage & Colorations</h4>
+                            <p class="text-amber-400 text-sm sm:text-base mt-1">Kératine, balayage, ombré</p>
+                            <p class="text-zinc-400 text-sm sm:text-base mt-3">Sur devis</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 
-    <!-- PAGE 3 : CONTACT & RDV -->
-    <div id="page-3" class="hidden min-h-screen pt-24 bg-black">
-        <div class="max-w-7xl mx-auto px-6 py-16">
-            <div class="grid md:grid-cols-2 gap-16">
-                <!-- Formulaire RDV -->
-                <div>
-                    <h2 class="text-5xl font-bold logo-font">Prenez rendez-vous</h2>
-                    <p class="text-zinc-400 mt-6 text-lg">
-                        Un style qui vous ressemble commence ici.
-                    </p>
+    <!-- PAGE 3 : CONTACT -->
+    <div id="page-3" class="hidden">
+        <section class="py-16 sm:py-24 bg-black">
+            <div class="max-w-7xl mx-auto px-5 sm:px-6">
+                <div class="grid md:grid-cols-2 gap-10 sm:gap-16">
+                    <!-- Formulaire -->
+                    <div>
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold logo-font mb-4 sm:mb-6">Prenez rendez-vous</h2>
+                        <p class="text-zinc-400 text-base sm:text-lg mb-6 sm:mb-8">
+                            Un style qui vous ressemble commence ici.
+                        </p>
 
-                    <form class="mt-10 space-y-6">
-                        <div class="grid grid-cols-2 gap-6">
-                            <input type="text" placeholder="Prénom *" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-6 py-4 focus:outline-none focus:border-amber-500">
-                            <input type="text" placeholder="Nom *" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-6 py-4 focus:outline-none focus:border-amber-500">
-                        </div>
-                        <input type="tel" placeholder="Téléphone / WhatsApp *" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-6 py-4 focus:outline-none focus:border-amber-500">
-                        <input type="date" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-6 py-4 focus:outline-none focus:border-amber-500">
-                        <select required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-6 py-4 focus:outline-none focus:border-amber-500">
-                            <option value="">Type de prestation souhaitée</option>
-                            <option>Box Braids / Twists</option>
-                            <option>Coupe homme</option>
-                            <option>Coiffure femme</option>
-                            <option>Coloration / Lissage</option>
-                            <option>Soins capillaires</option>
-                            <option>Autre</option>
-                        </select>
-                        <textarea placeholder="Dites-nous tout sur votre projet capillaire..." rows="4" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-6 py-4 focus:outline-none focus:border-amber-500"></textarea>
+                        <form class="space-y-5 sm:space-y-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <input type="text" placeholder="Prénom *" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 sm:px-6 py-4 text-base focus:outline-none focus:border-amber-500">
+                                <input type="text" placeholder="Nom *" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 sm:px-6 py-4 text-base focus:outline-none focus:border-amber-500">
+                            </div>
+                            <input type="tel" placeholder="Téléphone / WhatsApp *" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 sm:px-6 py-4 text-base focus:outline-none focus:border-amber-500">
+                            <input type="date" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 sm:px-6 py-4 text-base focus:outline-none focus:border-amber-500">
+                            <select required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 sm:px-6 py-4 text-base focus:outline-none focus:border-amber-500">
+                                <option value="">Type de prestation souhaitée</option>
+                                <option>Box Braids / Twists</option>
+                                <option>Coupe homme</option>
+                                <option>Coiffure femme</option>
+                                <option>Coloration / Lissage</option>
+                                <option>Soins capillaires</option>
+                                <option>Autre</option>
+                            </select>
+                            <textarea placeholder="Dites-nous tout sur votre projet capillaire..." rows="4" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-5 sm:px-6 py-4 text-base focus:outline-none focus:border-amber-500"></textarea>
 
-                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-semibold py-5 rounded-full text-lg transition">
-                            Envoyer ma demande
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Infos + Carte -->
-                <div class="space-y-10">
-                    <div class="bg-zinc-900 p-10 rounded-3xl">
-                        <h3 class="text-3xl font-bold mb-6">Nous trouver</h3>
-                        <div class="space-y-6">
-                            <div class="flex gap-5">
-                                <i class="fas fa-map-marker-alt text-3xl text-amber-500 mt-1"></i>
-                                <div>
-                                    <p class="font-medium">Fidjrossè / Aïbatin / Votre quartier exact</p>
-                                    <p class="text-zinc-400">Cotonou, Bénin</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-5">
-                                <i class="fas fa-phone-alt text-3xl text-amber-500 mt-1"></i>
-                                <div>
-                                    <p class="font-medium">+229 XX XX XX XX</p>
-                                    <p class="text-zinc-400">WhatsApp préféré</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-5">
-                                <i class="fas fa-clock text-3xl text-amber-500 mt-1"></i>
-                                <div>
-                                    <p class="font-medium">Mardi – Dimanche</p>
-                                    <p class="text-zinc-400">9h – 20h</p>
-                                </div>
-                            </div>
-                        </div>
+                            <button type="submit" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-semibold py-4 sm:py-5 rounded-full text-base sm:text-lg transition">
+                                Envoyer ma demande
+                            </button>
+                        </form>
                     </div>
 
-                    <div class="rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.797!2d2.391!3d6.370!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1022!2sCotonou!5e0!3m2!1sfr!2sbj!4v1730000000000" width="100%" height="380" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    <!-- Infos + Map -->
+                    <div class="space-y-8 sm:space-y-10">
+                        <div class="bg-zinc-900 p-6 sm:p-10 rounded-3xl">
+                            <h3 class="text-2xl sm:text-3xl font-bold mb-6">Nous trouver</h3>
+                            <div class="space-y-6 text-sm sm:text-base">
+                                <div class="flex gap-4 sm:gap-5">
+                                    <i class="fas fa-map-marker-alt text-2xl sm:text-3xl text-amber-500 mt-1"></i>
+                                    <div>
+                                        <p class="font-medium">Fidjrossè / Aïbatin / Votre quartier</p>
+                                        <p class="text-zinc-400">Cotonou, Bénin</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4 sm:gap-5">
+                                    <i class="fas fa-phone-alt text-2xl sm:text-3xl text-amber-500 mt-1"></i>
+                                    <div>
+                                        <p class="font-medium">+229 XX XX XX XX</p>
+                                        <p class="text-zinc-400">WhatsApp préféré</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4 sm:gap-5">
+                                    <i class="fas fa-clock text-2xl sm:text-3xl text-amber-500 mt-1"></i>
+                                    <div>
+                                        <p class="font-medium">Mardi – Dimanche</p>
+                                        <p class="text-zinc-400">9h – 20h</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.797!2d2.391!3d6.370!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1022!2sCotonou!5e0!3m2!1sfr!2sbj!4v1730000000000" width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 
     <!-- FOOTER -->
-    <footer class="bg-black py-12 border-t border-zinc-900">
-        <div class="max-w-7xl mx-auto px-6 text-center text-zinc-500 text-sm">
+    <footer class="bg-black py-10 sm:py-12 border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto px-5 sm:px-6 text-center text-zinc-500 text-sm">
             © 2026 Chez Damso • Salon de Coiffure Premium • Cotonou, Bénin
-            <div class="mt-4 flex justify-center gap-8">
+            <div class="mt-4 flex justify-center gap-6 sm:gap-8">
                 <a href="#" class="hover:text-amber-400"><i class="fab fa-instagram text-2xl"></i></a>
                 <a href="#" class="hover:text-amber-400"><i class="fab fa-whatsapp text-2xl"></i></a>
                 <a href="#" class="hover:text-amber-400"><i class="fab fa-facebook text-2xl"></i></a>
@@ -305,15 +321,32 @@
         function showPage(n) {
             document.querySelectorAll('div[id^="page-"]').forEach(p => p.classList.add('hidden'));
             document.getElementById(`page-${n}`).classList.remove('hidden');
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Mettre à jour le style actif du menu (optionnel)
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            const activeLinks = document.querySelectorAll(`a[onclick="showPage(${n})"]`);
+            activeLinks.forEach(link => link.classList.add('active'));
         }
 
         function toggleMobileMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.querySelector('#menu-btn i');
+            menu.classList.toggle('hidden');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
         }
 
-        // Fake form submit
-        document.querySelector('form').addEventListener('submit', e => {
+        // Fermer menu mobile quand on clique dehors (optionnel)
+        document.addEventListener('click', e => {
+            const menu = document.getElementById('mobile-menu');
+            const btn = document.getElementById('menu-btn');
+            if (!menu.contains(e.target) && !btn.contains(e.target) && !menu.classList.contains('hidden')) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Fake submit
+        document.querySelector('form')?.addEventListener('submit', e => {
             e.preventDefault();
             alert("✅ Demande envoyée ! Nous vous recontactons très vite via WhatsApp.");
         });
